@@ -85,8 +85,8 @@ print(f"  ROC AUC:  {roc_auc_score(y_test, y_prob):.3f}")
 
 
 # # Create Predictions csv
-# predictions_df = pd.DataFrame(clf.predict(X))
-# predictions_df.to_csv('predictions.csv', index=False)
+predictions_df = pd.DataFrame(clf.predict(X))
+predictions_df.to_csv('outputs/risk_predictions.csv', index=False)
 
 
 # # Plot ROC curve
