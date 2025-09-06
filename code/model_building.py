@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_validate
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -13,12 +14,8 @@ from sklearn.metrics import (
     classification_report, RocCurveDisplay, precision_recall_curve
 )
 import matplotlib.pyplot as plt
-import joblib
 from data_cleaning import clean_data
 
-# ---------------------------
-# 1) Load data
-# ---------------------------
 
 df, preprocess = clean_data()
 
@@ -28,14 +25,14 @@ y = df['Hidden_Hunger_Flag']
 
 
 mlp = MLPClassifier(
-    hidden_layer_sizes=(64, 32),   # try (128, 64) or (64, 64, 32) as variants
+    hidden_layer_sizes=(64, 32),   
     activation="relu",
     solver="adam",
-    alpha=1e-4,                    # L2 regularization
+    alpha=1e-4,                    
     batch_size=32,
     learning_rate="adaptive",
     max_iter=2000,
-    early_stopping=True,           # uses 10% of training set as validation
+    early_stopping=True,           
     n_iter_no_change=20,
     random_state=42,
 )
@@ -43,7 +40,7 @@ mlp = MLPClassifier(
 clf = Pipeline(steps=[("prep", preprocess), ("mlp", mlp)])
 
 # ---------------------------
-# 3) Train/Test split
+# Train/Test split
 # ---------------------------
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, stratify=y, random_state=42
@@ -87,28 +84,23 @@ print(f"  F1:       {f1_score(y_test, y_pred_opt):.3f}")
 print(f"  ROC AUC:  {roc_auc_score(y_test, y_prob):.3f}")  
 
 
-# Create Predictions csv
-predictions_df = pd.DataFrame(clf.predict(X))
-predictions_df.to_csv('predictions.csv', index=False)
+# # Create Predictions csv
+# predictions_df = pd.DataFrame(clf.predict(X))
+# predictions_df.to_csv('predictions.csv', index=False)
 
 
-# ---------------------------
-# Plot ROC curve
-# ---------------------------
-# RocCurveDisplay.from_predictions(y_test, y_prob)
-# plt.title("Neural Network ROC Curve")
-# plt.tight_layout()
-# plt.show()
+# # Plot ROC curve
 
-# ---------------------------
-# Save the trained pipeline
-# ---------------------------
-# joblib.dump(clf, "mlp_hidden_hunger_pipeline.joblib")
-# print("\nSaved model to mlp_hidden_hunger_pipeline.joblib")
+# # RocCurveDisplay.from_predictions(y_test, y_prob)
+# # plt.title("Neural Network ROC Curve")
+# # plt.tight_layout()
+# # plt.show()
 
 
 
-# SHAP Plot
+
+
+# # SHAP Plot
 # import numpy as np
 # import pandas as pd
 # import shap
@@ -187,3 +179,33 @@ predictions_df.to_csv('predictions.csv', index=False)
 # plt.title("SHAP Summary Plot — Neural Network (MLP)")
 # plt.tight_layout()
 # plt.show()
+
+
+# Feature Importance
+# model_df = clean_data()[0]
+# features_to_use = ['Age', 'Gender', 'Income_Bracket', 'Education_Level', 'Vitamin_A_Intake_ug', 'Vitamin_D_Intake_IU', 'Zinc_Intake_mg', 'Iron_Intake_mg', 'Folate_Intake_ug']
+
+# X, y = model_df[features_to_use], model_df['Hidden_Hunger_Flag']
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# # feature_names = model_df.feature_names
+
+# model = RandomForestClassifier(n_estimators=100, random_state=42, bootstrap=True, max_features='sqrt')
+# model.fit(X_train, y_train)
+
+# importances = model.feature_importances_
+
+#     # Sort features by importance for better visualization
+# indices = np.argsort(importances)[::-1]
+# sorted_importances = importances[indices]
+# sorted_feature_names = [features_to_use[i] for i in indices]
+
+# plt.figure(figsize=(10, 6))
+# plt.bar(range(X.shape[1]), sorted_importances, align='center')
+# plt.xticks(range(X.shape[1]), sorted_feature_names, rotation=90)
+# plt.title("Random Forest Feature Importance")
+# plt.xlabel("Feature")
+# plt.ylabel("Importance (Mean Decrease in Impurity)")
+# plt.tight_layout()
+# plt.show()
+
