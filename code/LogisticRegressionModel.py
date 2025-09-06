@@ -48,3 +48,73 @@ print(f"Actual prediction (logit): {prediction_logit:.4f}")
 shap_df = pd.DataFrame(shap_values, columns=features_to_use)
 print(f"\nSHAP values summary:")
 print(shap_df.describe())
+
+# Feature importance based on mean absolute SHAP values
+feature_importance = np.abs(shap_values).mean(axis=0)
+importance_df = pd.DataFrame({
+    'Feature': features_to_use,
+    'Importance': feature_importance
+}).sort_values('Importance', ascending=False)
+
+print(f"\nFeature importance (mean |SHAP|):")
+print(importance_df)
+
+# Example: Explain a single prediction in detail
+sample_idx = 0
+sample_data = X_test.iloc[sample_idx]
+sample_shap = shap_values[sample_idx]
+sample_pred = model.predict_proba(X_test.iloc[[sample_idx]])[0, 1]
+
+print(f"\n" + "="*50)
+print(f"DETAILED EXPLANATION FOR SAMPLE {sample_idx}")
+print(f"="*50)
+print(f"Predicted probability: {sample_pred:.4f}")
+print(f"Baseline probability: {1/(1+np.exp(-expected_value)):.4f}")
+print(f"\nFeature contributions:")
+
+for name, value, shap_val in zip(features_to_use, sample_data, sample_shap):
+    direction = "increases" if shap_val > 0 else "decreases"
+    print(f"  {name}: {value:.2f} -> {direction} prediction by {abs(shap_val):.4f}")
+
+
+def plot_shap_summary():
+    """Create SHAP summary plot"""
+    shap.summary_plot(shap_values, X_test, feature_names=features_to_use, show=False)
+    plt.title("SHAP Summary Plot")
+    plt.tight_layout()
+    plt.show()
+
+def plot_shap_waterfall(sample_idx=0):
+    """Create waterfall plot for a single prediction"""
+    shap.waterfall_plot(
+        shap.Explanation(
+            values=shap_values[sample_idx], 
+            base_values=expected_value,
+            data=X_test.iloc[sample_idx].values,
+            feature_names=features_to_use
+        ),
+        show=False
+    )
+    plt.title(f"SHAP Waterfall Plot - Sample {sample_idx}")
+    plt.tight_layout()
+    plt.show()
+
+def plot_shap_bar():
+    """Create bar plot of feature importance"""
+    shap.bar_plot(
+        shap.Explanation(
+            values=shap_values,
+            feature_names=features_to_use
+        ),
+        show=False
+    )
+    plt.title("SHAP Feature Importance")
+    plt.tight_layout()
+    plt.show()
+
+print(f"\nTo create visualizations, call:")
+print(f"plot_shap_summary()    # Summary plot")
+print(f"plot_shap_waterfall()  # Waterfall plot for single prediction")
+print(f"plot_shap_bar()        # Bar plot of importance")
+
+plot_shap_summary()
