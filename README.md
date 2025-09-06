@@ -32,7 +32,7 @@ The model uses a dataset containing:
 
 1. **Clone the repository** (if not already done):
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/audreyhan222/FeartheNut_HiddenHunger2025.git
    cd FeartheNut_HiddenHunger2025
    ```
 
