@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NutriScope • How It Works & Risk Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#0b3f29;color:#eaf6ef}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    .panel{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
+    .how{background:linear-gradient(180deg,#148a43 0%,#0f7b41 100%);border-radius:26px;padding:34px 28px;box-shadow:0 10px 26px rgba(0,0,0,.16)}
+    .how h2{margin:0 0 18px 0;font-size:36px;color:#fff}
+    .how p{line-height:1.7;font-size:16px;color:#f4fffa}
+    .how strong{font-weight:800}
+    .riskCard{position:relative;display:grid;grid-template-columns:1fr 180px;gap:0;background:#e9e6e3;border-radius:22px;box-shadow:0 10px 26px rgba(0,0,0,.16);overflow:hidden}
+    .riskBody{padding:22px;color:#113b27}
+    .riskBody h3{margin:0 0 14px 0;color:#103e29;font-size:24px}
+    .field{margin:10px 0}
+    .label{display:block;font-weight:700;margin-bottom:8px}
+    .control{width:100%;padding:12px 14px;border-radius:12px;border:2px solid #d7e7de;font-size:15px;color:#113b27}
+    .textarea{min-height:110px;resize:vertical}
+    .calcBtn{margin-top:8px;width:100%;padding:12px 16px;border:0;border-radius:999px;background:#198c44;color:#fff;font-weight:700;cursor:pointer}
+    .note{margin-top:12px}
+    .sideImg{background:url('https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=1000&auto=format&fit=crop') center/cover no-repeat;min-height:100%}
+    @media(max-width:980px){.panel{grid-template-columns:1fr}.riskCard{grid-template-columns:1fr}.sideImg{height:160px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="panel">
+      <article class="how">
+        <h2>How It Works</h2>
+        <p><strong>NutriScope</strong> combines demographic insights with the power of artificial intelligence to provide a clearer picture of nutritional health. By surveying factors such as <strong>age</strong>, <strong>education</strong>, <strong>income level</strong>, and <strong>gender</strong>, NutriScope captures the social and lifestyle context that shapes dietary habits. These inputs are then processed through advanced predictive machine learning models that estimate an individual's likelihood of insufficient micronutrient intake. By integrating demographic data with evidence-based nutrition science, NutriScope delivers personalized risk assessments that reveal potential hidden deficiencies and guide users toward informed, proactive health decisions. Are you at risk? Find out here.</p>
+      </article>
+      <aside class="riskCard" aria-label="Calculate Risk">
+        <div class="riskBody">
+          <h3>Calculate Risk:</h3>
+          <div class="field"><span class="label">Age:</span><input class="control" id="age" type="number" placeholder="Enter age" /></div>
+          <div class="field"><span class="label">Gender:</span>
+            <select class="control" id="gender">
+              <option value="">Select gender</option>
+              <option>Female</option>
+              <option>Male</option>
+            </select>
+          </div>
+          <div class="field"><span class="label">Income Bracket:</span>
+            <select class="control" id="income">
+              <option value="">Select income bracket</option>
+              <option>Low</option>
+              <option>Lower-middle</option>
+              <option>Upper-middle</option>
+              <option>High</option>
+            </select>
+          </div>
+          <div class="field"><span class="label">Education Level:</span>
+            <select class="control" id="education">
+              <option value="">Select education level</option>
+              <option>Elementary</option>
+              <option>Middle/High School</option>
+              <option>Post-Secondary</option>
+            </select>
+          </div>
+          <div class="field"><span class="label">State:</span>
+            <select class="control" id="state">
+              <option value="">Select U.S. state</option>
+              <option>Alabama</option>
+              <option>Alaska</option>
+              <option>Arizona</option>
+              <option>Arkansas</option>
+              <option>California</option>
+              <option>Colorado</option>
+              <option>Connecticut</option>
+              <option>Delaware</option>
+              <option>Florida</option>
+              <option>Georgia</option>
+              <option>Hawaii</option>
+              <option>Idaho</option>
+              <option>Illinois</option>
+              <option>Indiana</option>
+              <option>Iowa</option>
+              <option>Kansas</option>
+              <option>Kentucky</option>
+              <option>Louisiana</option>
+              <option>Maine</option>
+              <option>Maryland</option>
+              <option>Massachusetts</option>
+              <option>Michigan</option>
+              <option>Minnesota</option>
+              <option>Mississippi</option>
+              <option>Missouri</option>
+              <option>Montana</option>
+              <option>Nebraska</option>
+              <option>Nevada</option>
+              <option>New Hampshire</option>
+              <option>New Jersey</option>
+              <option>New Mexico</option>
+              <option>New York</option>
+              <option>North Carolina</option>
+              <option>North Dakota</option>
+              <option>Ohio</option>
+              <option>Oklahoma</option>
+              <option>Oregon</option>
+              <option>Pennsylvania</option>
+              <option>Rhode Island</option>
+              <option>South Carolina</option>
+              <option>South Dakota</option>
+              <option>Tennessee</option>
+              <option>Texas</option>
+              <option>Utah</option>
+              <option>Vermont</option>
+              <option>Virginia</option>
+              <option>Washington</option>
+              <option>West Virginia</option>
+              <option>Wisconsin</option>
+              <option>Wyoming</option>
+            </select>
+          </div>
+          <div class="field"><span class="label">Daily Food Description:</span><textarea class="control textarea" id="desc" placeholder="Enter short description..."></textarea></div>
+          <div class="field"><span class="label">Daily Calorie Intake:</span><input class="control" id="calories" type="number" placeholder="Enter daily calories" /></div>
+          <button class="calcBtn" id="calcBtn">Calculate</button>
+          <p class="note">You are at: <strong id="resultText">(High/low risk)</strong> nutrient insufficiency</p>
+        </div>
+        <div class="sideImg" aria-hidden="true"></div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('calcBtn').addEventListener('click', function(){
+      const age = parseInt(document.getElementById('age').value, 10);
+      const income = document.getElementById('income').value;
+      const foodDescription = document.getElementById('desc').value;
+      const calories = parseInt(document.getElementById('calories').value, 10);
+      
+      // Validate age - must be greater than 0
+      if (!age || age <= 0) {
+        alert('Please enter an age greater than 0 before calculating.');
+        document.getElementById('age').focus();
+        return;
+      }
+      
+      // Validate calories - must be greater than 0
+      if (!calories || calories <= 0) {
+        alert('Please enter a daily calorie intake greater than 0 before calculating.');
+        document.getElementById('calories').focus();
+        return;
+      }
+      
+      // Validate food description
+      if (!foodDescription.trim()) {
+        alert('Please enter a daily food description before calculating.');
+        document.getElementById('desc').focus();
+        return;
+      }
+      
+      // Send data to server for AI calculation
+      const formData = new FormData();
+      formData.append('age', age);
+      formData.append('gender', document.getElementById('gender').value);
+      formData.append('income', income);
+      formData.append('education', document.getElementById('education').value);
+      formData.append('state', document.getElementById('state').value);
+      formData.append('food_description', foodDescription);
+      formData.append('calories', calories);
+      
+      fetch('/form', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(html => {
+        document.body.innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error calculating vitamin intake. Please try again.');
+      });
+    });
+  </script>
+</body>
+</html>

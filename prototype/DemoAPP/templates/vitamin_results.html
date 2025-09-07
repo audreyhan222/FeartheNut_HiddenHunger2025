@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NutriScope • Vitamin Analysis Results</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#0b3f29;color:#eaf6ef}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    .header{text-align:center;margin-bottom:40px}
+    .header h1{color:#fff;font-size:48px;margin:0 0 16px 0;font-weight:800}
+    .header p{color:#f4fffa;font-size:18px;margin:0}
+    .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:40px}
+    .result-card{background:linear-gradient(180deg,#148a43 0%,#0f7b41 100%);border-radius:20px;padding:28px;box-shadow:0 10px 26px rgba(0,0,0,.16)}
+    .result-card h3{margin:0 0 16px 0;color:#fff;font-size:24px;font-weight:700}
+    .vitamin-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.2)}
+    .vitamin-item:last-child{border-bottom:none}
+    .vitamin-name{color:#f4fffa;font-weight:600;font-size:16px}
+    .vitamin-amount{color:#fff;font-weight:700;font-size:18px}
+    .summary-card{background:#e9e6e3;border-radius:20px;padding:28px;margin-bottom:32px;color:#113b27}
+    .summary-card h2{margin:0 0 20px 0;color:#103e29;font-size:28px;font-weight:700}
+    .summary-item{margin:12px 0;display:flex;justify-content:space-between;align-items:center}
+    .summary-label{font-weight:600;font-size:16px}
+    .summary-value{font-weight:700;font-size:16px}
+    .risk-indicator{display:inline-block;padding:8px 16px;border-radius:20px;font-weight:700;font-size:14px}
+    .risk-high{background:#ff6b6b;color:#fff}
+    .risk-low{background:#51cf66;color:#fff}
+    .actions{text-align:center;margin-top:40px}
+    .btn{display:inline-block;padding:16px 32px;margin:0 12px;border-radius:12px;text-decoration:none;font-weight:700;font-size:16px;transition:all 0.3s ease}
+    .btn-primary{background:#198c44;color:#fff}
+    .btn-secondary{background:#6c757d;color:#fff}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.2)}
+    .ai-note{background:rgba(255,255,255,0.1);border-radius:12px;padding:20px;margin-top:32px;text-align:center}
+    .ai-note p{margin:0;color:#f4fffa;font-size:14px;line-height:1.6}
+    @media(max-width:768px){
+      .header h1{font-size:36px}
+      .results-grid{grid-template-columns:1fr}
+      .btn{margin:8px 0;display:block}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="header">
+      <h1>🧬 Vitamin Analysis Results</h1>
+      <p>AI-Powered Nutritional Assessment</p>
+    </header>
+
+    <div class="summary-card">
+      <h2>📊 Assessment Summary</h2>
+      <div class="summary-item">
+        <span class="summary-label">Age:</span>
+        <span class="summary-value">{{ age }} years</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Gender:</span>
+        <span class="summary-value">{{ gender }}</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Daily Calories:</span>
+        <span class="summary-value">{{ calories }} kcal</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Risk Level:</span>
+        <span class="summary-value">
+          <span class="risk-indicator {% if risk_level == 'High risk' %}risk-high{% else %}risk-low{% endif %}">
+            {{ risk_level }}
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <h3>🥕 Vitamin A Intake</h3>
+        <div class="vitamin-item">
+          <span class="vitamin-name">Estimated Daily Intake</span>
+          <span class="vitamin-amount">{{ vitamin_results.vitamin_a }} μg</span>
+        </div>
+        <div class="vitamin-item">
+          <span class="vitamin-name">Recommended Daily</span>
+          <span class="vitamin-amount">700-900 μg</span>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <h3>☀️ Vitamin D Intake</h3>
+        <div class="vitamin-item">
+          <span class="vitamin-name">Estimated Daily Intake</span>
+          <span class="vitamin-amount">{{ vitamin_results.vitamin_d }} μg</span>
+        </div>
+        <div class="vitamin-item">
+          <span class="vitamin-name">Recommended Daily</span>
+          <span class="vitamin-amount">15-20 μg</span>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <h3>⚡ Zinc Intake</h3>
+        <div class="vitamin-item">
+          <span class="vitamin-name">Estimated Daily Intake</span>
+          <span class="vitamin-amount">{{ vitamin_results.zinc }} mg</span>
+        </div>
+        <div class="vitamin-item">
+          <span class="vitamin-name">Recommended Daily</span>
+          <span class="vitamin-amount">8-11 mg</span>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <h3>🩸 Iron Intake</h3>
+        <div class="vitamin-item">
+          <span class="vitamin-name">Estimated Daily Intake</span>
+          <span class="vitamin-amount">{{ vitamin_results.iron }} mg</span>
+        </div>
+        <div class="vitamin-item">
+          <span class="vitamin-name">Recommended Daily</span>
+          <span class="vitamin-amount">8-18 mg</span>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <h3>🌿 Folate Intake</h3>
+        <div class="vitamin-item">
+          <span class="vitamin-name">Estimated Daily Intake</span>
+          <span class="vitamin-amount">{{ vitamin_results.folate }} μg</span>
+        </div>
+        <div class="vitamin-item">
+          <span class="vitamin-name">Recommended Daily</span>
+          <span class="vitamin-amount">400-600 μg</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-note">
+      <p><strong>🤖 AI Analysis Note:</strong> These estimates are based on your food description "{{ food_description }}" and daily calorie intake of {{ calories }} calories. The AI analyzed your dietary patterns and demographic factors to provide personalized vitamin intake estimates. For accurate nutritional assessment, consult with a healthcare professional.</p>
+    </div>
+
+    <div class="actions">
+      <a href="/form" class="btn btn-primary">🔄 Calculate Again</a>
+      <a href="/" class="btn btn-secondary">🏠 Back to Home</a>
+    </div>
+  </main>
+</body>
+</html>

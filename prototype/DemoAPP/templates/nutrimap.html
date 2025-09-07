@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U.S. Micronutrient Deficiency (Hidden-hunger) Index Distribution</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f8f9fa;
+        }
+        
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        .map-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .map-wrapper {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        
+        .map-svg {
+            flex: 1;
+            max-width: 800px;
+        }
+        
+        .legend {
+            width: 200px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .legend-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .legend-scale {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 15px;
+            border-radius: 2px;
+        }
+        
+        .state {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .state:hover {
+            stroke: #2c3e50 !important;
+            stroke-width: 2 !important;
+            filter: brightness(1.1);
+        }
+        
+        .state-label {
+            font-size: 10px;
+            font-weight: 600;
+            fill: #2c3e50;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="map-container">
+        <h1 class="map-title">U.S. Micronutrient Deficiency (Hidden-hunger) Index Distribution</h1>
+        
+        <div class="map-wrapper">
+            <div class="map-svg">
+                <svg viewBox="0 0 1000 600" style="width: 100%; height: auto;">
+                    <!-- High deficiency states (dark green) -->
+                    <path class="state" d="M350 400 L400 390 L420 410 L430 450 L420 490 L400 500 L360 490 L340 450 L350 410 Z" 
+                          fill="#1b5e20" stroke="#ffffff" stroke-width="1" data-state="Mississippi" data-index="0.9"/>
+                    <path class="state" d="M100 300 L150 290 L170 310 L180 350 L170 390 L150 400 L110 390 L90 350 L100 310 Z" 
+                          fill="#1b5e20" stroke="#ffffff" stroke-width="1" data-state="Arizona" data-index="0.85"/>
+                    <path class="state" d="M350 300 L400 290 L420 310 L430 350 L420 390 L400 400 L360 390 L340 350 L350 310 Z" 
+                          fill="#1b5e20" stroke="#ffffff" stroke-width="1" data-state="Oklahoma" data-index="0.9"/>
+                    <path class="state" d="M400 300 L450 290 L470 310 L480 350 L470 390 L450 400 L410 390 L390 350 L400 310 Z" 
+                          fill="#1b5e20" stroke="#ffffff" stroke-width="1" data-state="Arkansas" data-index="0.8"/>
+                    <path class="state" d="M300 400 L350 390 L370 410 L380 450 L370 490 L350 500 L310 490 L290 450 L300 410 Z" 
+                          fill="#1b5e20" stroke="#ffffff" stroke-width="1" data-state="Louisiana" data-index="0.8"/>
+                    
+                    <!-- Moderate-high deficiency states -->
+                    <path class="state" d="M300 250 L400 240 L450 260 L480 300 L470 350 L430 380 L380 390 L320 380 L280 350 L270 300 L280 260 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="Texas" data-index="0.7"/>
+                    <path class="state" d="M600 350 L650 340 L680 360 L700 400 L680 450 L650 480 L620 490 L600 470 L580 430 L590 380 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="Florida" data-index="0.6"/>
+                    <path class="state" d="M550 300 L600 290 L620 310 L630 350 L620 390 L600 400 L560 390 L540 350 L550 310 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="Georgia" data-index="0.6"/>
+                    <path class="state" d="M650 280 L700 270 L720 290 L730 330 L720 370 L700 380 L660 370 L640 330 L650 290 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="North Carolina" data-index="0.6"/>
+                    <path class="state" d="M400 250 L450 240 L470 260 L480 300 L470 340 L450 350 L410 340 L390 300 L400 260 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="Missouri" data-index="0.6"/>
+                    <path class="state" d="M350 250 L400 240 L420 260 L430 300 L420 340 L400 350 L360 340 L340 300 L350 260 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="Kansas" data-index="0.6"/>
+                    <path class="state" d="M350 200 L400 190 L420 210 L430 250 L420 290 L400 300 L360 290 L340 250 L350 210 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="Nebraska" data-index="0.6"/>
+                    <path class="state" d="M350 150 L400 140 L420 160 L430 200 L420 240 L400 250 L360 240 L340 200 L350 160 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="South Dakota" data-index="0.6"/>
+                    <path class="state" d="M250 100 L300 90 L320 110 L330 150 L320 190 L300 200 L260 190 L240 150 L250 110 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="Montana" data-index="0.6"/>
+                    <path class="state" d="M120 250 L170 240 L190 260 L200 300 L190 340 L170 350 L130 340 L110 300 L120 260 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="Nevada" data-index="0.6"/>
+                    <path class="state" d="M50 200 L80 180 L120 190 L150 200 L180 220 L200 250 L190 280 L160 300 L120 310 L80 300 L60 280 L50 250 Z" 
+                          fill="#2e7d32" stroke="#ffffff" stroke-width="1" data-state="California" data-index="0.6"/>
+                    
+                    <!-- Moderate deficiency states -->
+                    <path class="state" d="M450 200 L500 190 L520 210 L530 250 L520 290 L500 300 L460 290 L440 250 L450 210 Z" 
+                          fill="#4caf50" stroke="#ffffff" stroke-width="1" data-state="Illinois" data-index="0.5"/>
+                    <path class="state" d="M400 200 L450 190 L470 210 L480 250 L470 290 L450 300 L410 290 L390 250 L400 210 Z" 
+                          fill="#4caf50" stroke="#ffffff" stroke-width="1" data-state="Iowa" data-index="0.5"/>
+                    <path class="state" d="M450 150 L500 140 L520 160 L530 200 L520 240 L500 250 L460 240 L440 200 L450 160 Z" 
+                          fill="#4caf50" stroke="#ffffff" stroke-width="1" data-state="Wisconsin" data-index="0.5"/>
+                    <path class="state" d="M500 150 L550 140 L570 160 L580 200 L570 240 L550 250 L510 240 L490 200 L500 160 Z" 
+                          fill="#4caf50" stroke="#ffffff" stroke-width="1" data-state="Michigan" data-index="0.5"/>
+                    <path class="state" d="M650 200 L700 190 L720 210 L730 250 L720 290 L700 300 L660 290 L640 250 L650 210 Z" 
+                          fill="#4caf50" stroke="#ffffff" stroke-width="1" data-state="Ohio" data-index="0.5"/>
+                    <path class="state" d="M700 180 L750 170 L770 190 L780 230 L770 270 L750 280 L710 270 L690 230 L700 190 Z" 
+                          fill="#4caf50" stroke="#ffffff" stroke-width="1" data-state="Pennsylvania" data-index="0.5"/>
+                    <path class="state" d="M750 150 L800 140 L820 160 L830 200 L820 240 L800 250 L760 240 L740 200 L750 160 Z" 
+                          fill="#4caf50" stroke="#ffffff" stroke-width="1" data-state="New York" data-index="0.5"/>
+                    
+                    <!-- Low deficiency states (light green) -->
+                    <path class="state" d="M200 100 L250 90 L270 110 L280 150 L270 190 L250 200 L210 190 L190 150 L200 110 Z" 
+                          fill="#a5d6a7" stroke="#ffffff" stroke-width="1" data-state="Washington" data-index="0.3"/>
+                    <path class="state" d="M150 300 L200 290 L220 310 L230 350 L220 390 L200 400 L160 390 L140 350 L150 310 Z" 
+                          fill="#a5d6a7" stroke="#ffffff" stroke-width="1" data-state="Utah" data-index="0.3"/>
+                    <path class="state" d="M250 350 L300 340 L320 360 L330 400 L320 440 L300 450 L260 440 L240 400 L250 360 Z" 
+                          fill="#a5d6a7" stroke="#ffffff" stroke-width="1" data-state="Colorado" data-index="0.3"/>
+                    <path class="state" d="M400 100 L450 90 L470 110 L480 150 L470 190 L450 200 L410 190 L390 150 L400 110 Z" 
+                          fill="#a5d6a7" stroke="#ffffff" stroke-width="1" data-state="Minnesota" data-index="0.3"/>
+                    <path class="state" d="M350 100 L400 90 L420 110 L430 150 L420 190 L400 200 L360 190 L340 150 L350 110 Z" 
+                          fill="#a5d6a7" stroke="#ffffff" stroke-width="1" data-state="North Dakota" data-index="0.3"/>
+                    
+                    <!-- Very low deficiency states (very light green) -->
+                    <path class="state" d="M800 100 L850 90 L870 110 L880 150 L870 190 L850 200 L810 190 L790 150 L800 110 Z" 
+                          fill="#e8f5e8" stroke="#ffffff" stroke-width="1" data-state="Maine" data-index="0.1"/>
+                    <path class="state" d="M820 120 L870 110 L890 130 L900 170 L890 210 L870 220 L830 210 L810 170 L820 130 Z" 
+                          fill="#e8f5e8" stroke="#ffffff" stroke-width="1" data-state="Vermont" data-index="0.1"/>
+                    <path class="state" d="M840 140 L890 130 L910 150 L920 190 L910 230 L890 240 L850 230 L830 190 L840 150 Z" 
+                          fill="#e8f5e8" stroke="#ffffff" stroke-width="1" data-state="New Hampshire" data-index="0.1"/>
+                    <path class="state" d="M860 160 L910 150 L930 170 L940 210 L930 250 L910 260 L870 250 L850 210 L860 170 Z" 
+                          fill="#e8f5e8" stroke="#ffffff" stroke-width="1" data-state="Massachusetts" data-index="0.1"/>
+                    <path class="state" d="M880 180 L930 170 L950 190 L960 230 L950 270 L930 280 L890 270 L870 230 L880 190 Z" 
+                          fill="#e8f5e8" stroke="#ffffff" stroke-width="1" data-state="Connecticut" data-index="0.1"/>
+                    <path class="state" d="M900 200 L950 190 L970 210 L980 250 L970 290 L950 300 L910 290 L890 250 L900 210 Z" 
+                          fill="#e8f5e8" stroke="#ffffff" stroke-width="1" data-state="New Jersey" data-index="0.1"/>
+                    <path class="state" d="M920 220 L970 210 L990 230 L1000 270 L990 310 L970 320 L930 310 L910 270 L920 230 Z" 
+                          fill="#e8f5e8" stroke="#ffffff" stroke-width="1" data-state="Delaware" data-index="0.1"/>
+                    <path class="state" d="M940 240 L990 230 L1010 250 L1020 290 L1010 330 L990 340 L950 330 L930 290 L940 250 Z" 
+                          fill="#e8f5e8" stroke="#ffffff" stroke-width="1" data-state="Maryland" data-index="0.1"/>
+                    
+                    <!-- Alaska inset -->
+                    <g transform="translate(50, 450) scale(0.3)">
+                        <path class="state" d="M100 50 L200 40 L250 80 L220 150 L150 180 L80 160 L50 120 Z" 
+                              fill="#4caf50" stroke="#ffffff" stroke-width="2" data-state="Alaska" data-index="0.5"/>
+                        <text class="state-label" x="150" y="110">AK</text>
+                    </g>
+                    
+                    <!-- Hawaii inset -->
+                    <g transform="translate(200, 500) scale(0.4)">
+                        <path class="state" d="M50 50 L80 40 L100 70 L90 100 L70 110 L40 90 L30 70 Z" 
+                              fill="#4caf50" stroke="#ffffff" stroke-width="2" data-state="Hawaii" data-index="0.5"/>
+                        <text class="state-label" x="65" y="80">HI</text>
+                    </g>
+                    
+                    <!-- State labels -->
+                    <text class="state-label" x="375" y="445">MS</text>
+                    <text class="state-label" x="135" y="355">AZ</text>
+                    <text class="state-label" x="375" y="355">OK</text>
+                    <text class="state-label" x="425" y="355">AR</text>
+                    <text class="state-label" x="325" y="445">LA</text>
+                    <text class="state-label" x="375" y="315">TX</text>
+                    <text class="state-label" x="650" y="425">FL</text>
+                    <text class="state-label" x="575" y="355">GA</text>
+                    <text class="state-label" x="675" y="335">NC</text>
+                    <text class="state-label" x="425" y="315">MO</text>
+                    <text class="state-label" x="375" y="315">KS</text>
+                    <text class="state-label" x="375" y="265">NE</text>
+                    <text class="state-label" x="375" y="215">SD</text>
+                    <text class="state-label" x="275" y="155">MT</text>
+                    <text class="state-label" x="155" y="355">NV</text>
+                    <text class="state-label" x="135" y="255">CA</text>
+                    <text class="state-label" x="475" y="255">IL</text>
+                    <text class="state-label" x="425" y="255">IA</text>
+                    <text class="state-label" x="475" y="205">WI</text>
+                    <text class="state-label" x="525" y="205">MI</text>
+                    <text class="state-label" x="675" y="255">OH</text>
+                    <text class="state-label" x="725" y="235">PA</text>
+                    <text class="state-label" x="775" y="205">NY</text>
+                    <text class="state-label" x="225" y="155">WA</text>
+                    <text class="state-label" x="175" y="355">UT</text>
+                    <text class="state-label" x="275" y="405">CO</text>
+                    <text class="state-label" x="425" y="155">MN</text>
+                    <text class="state-label" x="375" y="155">ND</text>
+                </svg>
+            </div>
+            
+            <div class="legend">
+                <div class="legend-title">Hidden-hunger Index</div>
+                <div class="legend-scale">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #1b5e20;"></div>
+                        <span>1.0</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #2e7d32;"></div>
+                        <span>0.8</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #4caf50;"></div>
+                        <span>0.6</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #66bb6a;"></div>
+                        <span>0.4</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #a5d6a7;"></div>
+                        <span>0.2</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #e8f5e8;"></div>
+                        <span>0.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="tooltip" id="tooltip"></div>
+    
+    <script>
+        const tooltip = document.getElementById('tooltip');
+        const states = document.querySelectorAll('.state');
+        
+        states.forEach(state => {
+            state.addEventListener('mouseenter', function(e) {
+                const stateName = this.getAttribute('data-state');
+                const index = this.getAttribute('data-index');
+                tooltip.innerHTML = `${stateName}<br/>Index: ${index}`;
+                tooltip.style.opacity = '1';
+            });
+            
+            state.addEventListener('mousemove', function(e) {
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY - 10 + 'px';
+            });
+            
+            state.addEventListener('mouseleave', function() {
+                tooltip.style.opacity = '0';
+            });
+        });
+    </script>
+</body>
+</html>
+
