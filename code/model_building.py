@@ -210,5 +210,5 @@ predictions_df.to_csv('outputs/risk_predictions.csv', index=False)
 # plt.tight_layout()
 # plt.show()
 
-filename = 'my_model.sav'
-joblib.dump(clf, filename)
+# filename = 'my_model.sav'
+# joblib.dump(clf, filename)
