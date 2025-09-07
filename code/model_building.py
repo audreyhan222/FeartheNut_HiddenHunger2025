@@ -15,6 +15,7 @@ from sklearn.metrics import (
 )
 import matplotlib.pyplot as plt
 from data_cleaning import clean_data
+import joblib
 
 
 df, preprocess = clean_data()
@@ -209,3 +210,5 @@ predictions_df.to_csv('outputs/risk_predictions.csv', index=False)
 # plt.tight_layout()
 # plt.show()
 
+filename = 'my_model.sav'
+joblib.dump(clf, filename)
