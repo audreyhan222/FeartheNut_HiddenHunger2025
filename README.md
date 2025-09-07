@@ -115,7 +115,7 @@ Create a `.env` file inside `DemoAPP/` (same folder as `main.py`). These are opt
 
 ```bash
 
-# FeartheNut_HiddenHunger2025/prototype/AppDesign_FeartheNut/DemoAPP/.env
+# FeartheNut_HiddenHunger2025/prototype/DemoAPP/.env
 SECRET_KEY=change-this
 # Optional: required if you enable AI calls
 GOOGLE_API_KEY=your_google_genai_api_key
@@ -124,13 +124,13 @@ GOOGLE_API_KEY=your_google_genai_api_key
 ## 4) Ensure instance folder exists (for SQLite)
 Flask/SQLAlchemy will place the SQLite DB in the `instance/` folder.
 ```bash
-mkdir -p FeartheNut_HiddenHunger2025/prototype/AppDesign_FeartheNut/DemoAPP/instance
+mkdir -p FeartheNut_HiddenHunger2025/prototype/DemoAPP/instance
 ```
 
 ## 5) Initialize the database
 If you need to (first run or after deleting the DB), run:
 ```bash
-cd FeartheNut_HiddenHunger2025AppDesign_FeartheNut/DemoAPP
+cd FeartheNut_HiddenHunger2025/prototype/DemoAPP
 python init_db.py
 ```
 This will create the SQLite database under `DemoAPP/instance/`.
@@ -138,13 +138,13 @@ This will create the SQLite database under `DemoAPP/instance/`.
 ## 6) Model file (ML prediction)
 If you are using the risk prediction route, ensure the model file exists at:
 ```
-FeartheNut_HiddenHunger2025/prototype/AppDesign_FeartheNut/DemoAPP/routes/my_model.sav
+FeartheNut_HiddenHunger2025/prototype/DemoAPP/routes/my_model.sav
 ```
 `routes/model.py` loads the model from its own directory.
 
 ## 7) Run the app
 ```bash
-cd FeartheNut_HiddenHunger2025/prototype/AppDesign_FeartheNut/DemoAPP
+cd FeartheNut_HiddenHunger2025/prototype/DemoAPP
 python main.py
 ```
 Then open `http://127.0.0.1:5000` (or `http://localhost:5000`).
