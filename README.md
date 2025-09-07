@@ -87,7 +87,7 @@ Metrics at optimized threshold:
   Accuracy: 0.XXX
   F1:       0.XXX
   ROC AUC:  0.XXX
-
+```
 
 # NutriScope Web App
 
