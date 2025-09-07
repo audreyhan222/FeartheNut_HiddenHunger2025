@@ -98,39 +98,45 @@ A Flask web application for Hidden Hunger risk assessment.
 - pip
 - (Optional) virtualenv
 
-## 1) Create and activate a virtual environment
+## 1) Clone the repo
 ```bash
 cd ..
-python -m venv myenv
-source myenv/bin/activate
+git clone https://github.com/leslietsai1227-dot/AppDesign_FeartheNut.git
+cd AppDesign_FeartheNut
 ```
 
-## 2) Install dependencies
+## 2. **Create a virtual environment** (recommended):
 ```bash
-pip install -r requirements.txt
+python -m venv myenv
+source myenv/bin/activate  # On Windows: myenv\Scripts\activate
 ```
 
-## 3) Environment variables
+## 3. **Install dependencies**:
+   ```bash
+   pip install -r code/requirements.txt
+   ```
+
+## 4) Environment variables
 Create a `.env` file inside `DemoAPP/` (same folder as `main.py`). These are optional unless you use AI features.
 
 ```bash
 
-# FeartheNut_HiddenHunger2025/prototype/DemoAPP/.env
+# AppDesign_FeartheNut/DemoAPP/.env
 SECRET_KEY=change-this
 # Optional: required if you enable AI calls
 GOOGLE_API_KEY=your_google_genai_api_key
 ```
 
-## 4) Ensure instance folder exists (for SQLite)
+## 5) Ensure instance folder exists (for SQLite)
 Flask/SQLAlchemy will place the SQLite DB in the `instance/` folder.
 ```bash
-mkdir -p FeartheNut_HiddenHunger2025/prototype/DemoAPP/instance
+mkdir -p AppDesign_FeartheNut/DemoAPP/instance
 ```
 
-## 5) Initialize the database
+## 6) Initialize the database
 If you need to (first run or after deleting the DB), run:
 ```bash
-cd FeartheNut_HiddenHunger2025/prototype/DemoAPP
+cd AppDesign_FeartheNut/DemoAPP
 python init_db.py
 ```
 This will create the SQLite database under `DemoAPP/instance/`.
@@ -138,13 +144,13 @@ This will create the SQLite database under `DemoAPP/instance/`.
 ## 6) Model file (ML prediction)
 If you are using the risk prediction route, ensure the model file exists at:
 ```
-FeartheNut_HiddenHunger2025/prototype/DemoAPP/routes/my_model.sav
+AppDesign_FeartheNut/DemoAPP/routes/my_model.sav
 ```
 `routes/model.py` loads the model from its own directory.
 
 ## 7) Run the app
 ```bash
-cd FeartheNut_HiddenHunger2025/prototype/DemoAPP
+cd AppDesign_FeartheNut/DemoAPP
 python main.py
 ```
 Then open `http://127.0.0.1:5000` (or `http://localhost:5000`).
