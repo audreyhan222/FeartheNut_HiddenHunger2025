@@ -100,7 +100,7 @@ A Flask web application for Hidden Hunger risk assessment.
 
 ## 1) Create and activate a virtual environment
 ```bash
-cd /Users/audre/code/personal/AppDesign_FeartheNut
+cd ..
 python -m venv myenv
 source myenv/bin/activate
 ```
@@ -114,6 +114,7 @@ pip install -r requirements.txt
 Create a `.env` file inside `DemoAPP/` (same folder as `main.py`). These are optional unless you use AI features.
 
 ```bash
+
 # /Users/audre/code/personal/AppDesign_FeartheNut/DemoAPP/.env
 SECRET_KEY=change-this
 # Optional: required if you enable AI calls
