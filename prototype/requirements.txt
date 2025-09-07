@@ -1,9 +1,0 @@
-Flask
-Flask-SQLAlchemy
-SQLAlchemy
-pandas
-joblib
-scikit-learn
-openai
-python-dotenv
-google-generativeai
